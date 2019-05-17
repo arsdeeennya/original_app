@@ -199,7 +199,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bcrypt (= 3.1.11)
+  bcrypt
   bootstrap-sass
   byebug
   capybara (~> 2.13)

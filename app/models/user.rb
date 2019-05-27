@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   attr_accessor :remember_token
   
+  before_validation :set_nameless_name
+  
   validates :name, presence: true, length: { maximum: 50}
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum:255},
@@ -35,4 +37,9 @@ class User < ApplicationRecord
   def forget
     update_attribute(:remember_digest, nil)
   end
+  
+  private
+    def set_nameless_name
+      self.name = 'ななしのごんべい' if name.blank?
+    end
 end

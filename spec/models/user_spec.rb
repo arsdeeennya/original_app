@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   
+  # 名、メール、パスワード、パスワード（確認）があれば有効である
   it 'is valid with a name, email, password, password_confirmation' do
     user = User.new(
       name:'hogehoge',
@@ -12,18 +13,21 @@ RSpec.describe User, type: :model do
     expect(user).to be_valid
   end  
   
+  #名前がなければ無効である
   it 'is invalid without a name' do
     user = User.new(name: nil)
     user.valid?
     expect(user.errors[:name]).to include("can't be blank")
   end
   
+  # メールアドレスがなければ無効である
   it 'is invalid without a email' do
     user = User.new(email: nil)
     user.valid?
     expect(user.errors[:email]).to include("can't be blank")
   end
   
+  # メールアドレスが重複したら無効である
   it 'is invalid with a duplicate email address' do
     User.create(
       name: 'hogehoge',
@@ -40,8 +44,4 @@ RSpec.describe User, type: :model do
     user.valid?
     expect(user.errors[:email]).to include("has already been taken")
   end
-  # # 重複したメールアドレスなら無効な状態であること
-  # it "is invalid with a duplicate email address"
-  # # ユーザーのフルネームを文字列として返すこと
-  # it "returns a user's full name as a string"
 end

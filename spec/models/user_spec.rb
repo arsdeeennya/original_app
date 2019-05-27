@@ -13,12 +13,12 @@ RSpec.describe User, type: :model do
     expect(user).to be_valid
   end  
   
-  #名前がなければ無効である
-  # it 'is invalid without a name' do
-  #   user = User.new(name: nil)
-  #   user.valid?
-  #   expect(user.errors[:name]).to include("can't be blank")
-  # end
+  #名前がなくても有効である
+  it 'is valid without a name' do
+    user = User.new(name: nil)
+    user.valid?
+    expect(user.errors[:name]).to_not include("can't be blank")
+  end
   
   # メールアドレスがなければ無効である
   it 'is invalid without a email' do

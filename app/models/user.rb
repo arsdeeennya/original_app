@@ -39,7 +39,8 @@ class User < ApplicationRecord
   end
   
   private
-    def set_nameless_name
-      self.name = 'ななしのごんべい' if name.blank?
-    end
+
+  def set_nameless_name
+    self.name = 'ななしのごんべい' if name.blank?
+  end
 end

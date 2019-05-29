@@ -16,7 +16,7 @@ RSpec.describe User, type: :model do
     expect(@user).to be_valid
   end  
   
-  #名前がなくても有効である
+  # 名前がなくても有効である
   it 'is valid without a name' do
     @user = User.new(name: nil)
     @user.valid?

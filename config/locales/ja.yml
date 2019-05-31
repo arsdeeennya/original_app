@@ -205,7 +205,6 @@ ja:
       long: "%Y/%m/%d %H:%M"
       short: "%m/%d %H:%M"
     pm: 午後
-    
   models:
     user: 
   attributes:
@@ -217,7 +216,13 @@ ja:
     password_confirmation: パスワード（確認）
     created_at: 登録日時
     updated_at: 更新日時
+  will_paginate:
+    previous_label: "前"
+    next_label: "次"
+    page_gap: "…"
 
+
+  
   
   
     

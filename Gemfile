@@ -22,6 +22,8 @@ gem 'sqlite3'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 gem 'will_paginate', '3.1.6'
+gem 'html2slim'
+gem 'slim-rails'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -42,6 +44,3 @@ group :development do
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-
-gem 'html2slim'
-gem 'slim-rails'

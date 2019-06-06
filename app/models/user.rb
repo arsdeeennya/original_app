@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  has_many :microposts, dependent: :destroy
   attr_accessor :remember_token
 
   before_validation :set_nameless_name
@@ -39,6 +40,10 @@ class User < ApplicationRecord
 
   def forget
     update_attribute(:remember_digest, nil)
+  end
+  
+  def feed
+    Micropost.where("user_id = ?", id)
   end
 
   private

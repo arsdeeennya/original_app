@@ -25,7 +25,7 @@ class UsersController < ApplicationController
     if @user.save
       logger.debug "ユーザー: #{@user.inspect}"
       log_in @user
-      flash[:success] = 'Welcome to the Sample App!'
+      flash[:success] = 'アカウントを作成しました！'
       redirect_to @user
       # => redirect_to user_path(@user.id)
     else
@@ -41,7 +41,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     if @user.update_attributes(user_params)
-      flash[:success] = 'Profile updated'
+      flash[:success] = '更新しました'
       redirect_to @user
     else
       render 'edit'
@@ -50,7 +50,7 @@ class UsersController < ApplicationController
   
   def destroy
    User.find(params[:id]).destroy
-    flash[:success] = "User deleted"
+    flash[:success] = "削除しました"
     redirect_to users_url
   end
   

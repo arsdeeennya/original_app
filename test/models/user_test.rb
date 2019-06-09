@@ -11,7 +11,8 @@ class UserTest < ActiveSupport::TestCase
       password_confirmation: 'foobar'
     )
   end
-
+  
+  # 名、メール、パスワード、パスワード（確認）があれば有効である
   test 'should be valid' do
     assert @user.valid?
   end

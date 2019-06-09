@@ -45,8 +45,7 @@ RSpec.describe User, type: :model do
                          first.last@foo.jp alice+bob@baz.cn]
     valid_addresses.each do |valid_address|
       @user.email = valid_address
-      @user.valid?
-      expect(@user.errors[:email]).to_not include('は不正な値です')
+      expect(@user).to be_valid 
     end
   end
   

@@ -12,6 +12,12 @@ RSpec.describe User, type: :model do
     )
   end
   
+  describe User do
+    it '有効なファクトリを持つこと' do
+      expect(FactoryBot.build(:user)).to be_valid
+    end
+  end
+  
   describe 'ログイン機能' do
     
     context 'ログインできる場合' do
@@ -34,9 +40,9 @@ RSpec.describe User, type: :model do
     context 'ログインできない場合' do
       
       it '名前は空だと、ななしのごんべい、になる' do
-        @user = User.new(name: nil)
-        @user.valid?
-        expect(@user.name).to include("ななしのごんべい")
+        user = FactoryBot.build(:user, name: nil )
+        user.valid?
+        expect(user.name).to include("ななしのごんべい")
       end
       
       it '名前は長すぎると無効である' do

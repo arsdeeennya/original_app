@@ -20,7 +20,7 @@ RSpec.describe User, type: :model do
         expect(@user).to be_valid
       end
       
-      it '有効なメールアドレスは有効である' do
+      it 'フォーマット内のメールアドレスは有効である' do
         valid_addresses = %w[user@example.com USER@foo.COM A_US-ER@foo.bar.org
                            first.last@foo.jp alice+bob@baz.cn]
         valid_addresses.each do |valid_address|
@@ -39,7 +39,7 @@ RSpec.describe User, type: :model do
         expect(@user.name).to include("ななしのごんべい")
       end
       
-      it 'メールアドレスがなければ入力必須である' do
+      it 'メールアドレスがnilだと無効である' do
         @user = User.new(email: nil)
         @user.valid?
         expect(@user.errors[:email]).to include('は不正な値です')
@@ -59,7 +59,7 @@ RSpec.describe User, type: :model do
       end
       
       
-      it '無効なメールアドレスを無効である' do
+      it 'ファーマット外のメールアドレスを無効である' do
         valid_addresses = %w[user@example,com user_at_foo.org user.name@example.
                            foo@bar_baz.com foo@bar+baz.com]
         valid_addresses.each do |valid_address|
@@ -81,11 +81,12 @@ RSpec.describe User, type: :model do
         expect(@user.errors[:password]).to include('を入力してください')
       end
     
-      it 'パスワードは短すぎてはいけない' do
+      it 'パスワードは短すぎると無効である' do
         @user.password = @user.password_confirmation = 'a' * 5
         @user.valid?
         expect(@user.errors[:password]).to include('は6文字以上で入力してください')
       end
+      
     end
   end
 end

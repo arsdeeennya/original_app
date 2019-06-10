@@ -12,26 +12,20 @@ RSpec.describe User, type: :model do
     )
   end
   
-  describe User do
-    it '有効なファクトリを持つこと' do
-      expect(FactoryBot.build(:user)).to be_valid
-    end
-  end
-  
   describe 'ログイン機能' do
     
     context 'ログインできる場合' do
       
       it '名前、メール、パスワード、パスワード（確認）があれば有効である' do
-        expect(@user).to be_valid
+        expect(FactoryBot.build(:user)).to be_valid
       end
       
       it 'メールアドレス（フォーマット内）は有効である' do
-        valid_addresses = %w[user@example.com USER@foo.COM A_US-ER@foo.bar.org
+        valid_addresses = %w[user1@example.com USER@foo.COM A_US-ER@foo.bar.org
                            first.last@foo.jp alice+bob@baz.cn]
         valid_addresses.each do |valid_address|
-          @user.email = valid_address
-          expect(@user).to be_valid 
+          user = FactoryBot.build(:user, email: valid_address)
+          expect(user).to be_valid 
         end
       end
     
@@ -46,21 +40,21 @@ RSpec.describe User, type: :model do
       end
       
       it '名前は長すぎると無効である' do
-        @user.name = 'a' * 51
-        @user.valid?
-        expect(@user.errors[:name]).to include('は50文字以内で入力してください') 
+        user = FactoryBot.build(:user, name: 'a' * 51)
+        user.valid?
+        expect(user.errors[:name]).to include('は50文字以内で入力してください') 
       end
       
       it 'メールアドレスはnilだと無効である' do
-        @user = User.new(email: nil)
-        @user.valid?
-        expect(@user.errors[:email]).to include('は不正な値です')
+        user = FactoryBot.build(:user, email: nil)
+        user.valid?
+        expect(user.errors[:email]).to include('は不正な値です')
       end
       
       it 'メールアドレスは長すぎては無効である' do
-        @user.email = 'a' * 244 + '@example.com'
-        @user.valid?
-        expect(@user.errors[:email]).to include('は255文字以内で入力してください')
+        user = FactoryBot.build(:user, email: 'a' * 244 + '@example.com')
+        user.valid?
+        expect(user.errors[:email]).to include('は255文字以内で入力してください')
       end
       
       
@@ -68,28 +62,28 @@ RSpec.describe User, type: :model do
         valid_addresses = %w[user@example,com user_at_foo.org user.name@example.
                            foo@bar_baz.com foo@bar+baz.com]
         valid_addresses.each do |valid_address|
-          @user.email = valid_address
-          @user.valid?
-          expect(@user.errors[:email]).to include('は不正な値です')
+          user = FactoryBot.build(:user, email: valid_address)
+          user.valid?
+          expect(user.errors[:email]).to include('は不正な値です')
         end
       end
       
       it 'メールアドレスは一意である' do
-        duplicate_user = @user.dup
+        duplicate_user = FactoryBot.create(:user).dup
         duplicate_user.valid?
         expect(duplicate_user.errors[:email]).to include('はすでに存在します')
       end
       
       it 'パスワードは入力必須である' do
-        @user.password = @user.password_confirmation = ' ' * 6
-        @user.valid?
-        expect(@user.errors[:password]).to include('を入力してください')
+        user = FactoryBot.build(:user, password: ' ' * 6, password_confirmation: ' ' * 6)
+        user.valid?
+        expect(user.errors[:password]).to include('を入力してください')
       end
     
       it 'パスワードは短すぎると無効である' do
-        @user.password = @user.password_confirmation = 'a' * 5
-        @user.valid?
-        expect(@user.errors[:password]).to include('は6文字以上で入力してください')
+        user = FactoryBot.build(:user, password: 'a' * 5, password_confirmation: 'a' * 5)
+        user.valid?
+        expect(user.errors[:password]).to include('は6文字以上で入力してください')
       end
       
     end

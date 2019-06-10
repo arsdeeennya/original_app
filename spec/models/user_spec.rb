@@ -3,15 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  before do
-    @user = User.create(
-      name: 'Example User',
-      email: 'user@example.com',
-      password: 'foobar',
-      password_confirmation: 'foobar'
-    )
-  end
-  
+
   describe 'ログイン機能' do
     
     context 'ログインできる場合' do

@@ -20,7 +20,7 @@ RSpec.describe User, type: :model do
         expect(@user).to be_valid
       end
       
-      it 'フォーマット内のメールアドレスは有効である' do
+      it 'メールアドレス（フォーマット内）は有効である' do
         valid_addresses = %w[user@example.com USER@foo.COM A_US-ER@foo.bar.org
                            first.last@foo.jp alice+bob@baz.cn]
         valid_addresses.each do |valid_address|
@@ -33,23 +33,22 @@ RSpec.describe User, type: :model do
     
     context 'ログインできない場合' do
       
-      it '名前が空だと、ななしのごんべい、になる' do
+      it '名前は空だと、ななしのごんべい、になる' do
         @user = User.new(name: nil)
         @user.valid?
         expect(@user.name).to include("ななしのごんべい")
       end
       
-      it 'メールアドレスがnilだと無効である' do
-        @user = User.new(email: nil)
-        @user.valid?
-        expect(@user.errors[:email]).to include('は不正な値です')
-      end
-    
-    
       it '名前は長すぎると無効である' do
         @user.name = 'a' * 51
         @user.valid?
         expect(@user.errors[:name]).to include('は50文字以内で入力してください') 
+      end
+      
+      it 'メールアドレスはnilだと無効である' do
+        @user = User.new(email: nil)
+        @user.valid?
+        expect(@user.errors[:email]).to include('は不正な値です')
       end
       
       it 'メールアドレスは長すぎては無効である' do
@@ -59,7 +58,7 @@ RSpec.describe User, type: :model do
       end
       
       
-      it 'ファーマット外のメールアドレスを無効である' do
+      it 'メールアドレス（フォーマット外）は無効である' do
         valid_addresses = %w[user@example,com user_at_foo.org user.name@example.
                            foo@bar_baz.com foo@bar+baz.com]
         valid_addresses.each do |valid_address|
@@ -74,7 +73,7 @@ RSpec.describe User, type: :model do
         duplicate_user.valid?
         expect(duplicate_user.errors[:email]).to include('はすでに存在します')
       end
-    
+      
       it 'パスワードは入力必須である' do
         @user.password = @user.password_confirmation = ' ' * 6
         @user.valid?

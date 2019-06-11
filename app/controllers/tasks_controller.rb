@@ -22,6 +22,12 @@ class TasksController < ApplicationController
     redirect_to tasks_url
   end
   
+  def destroy
+    task = Task.find(params[:id])
+    task.destroy
+    flash[:danger] = "タスク「#{task.name}」を削除しました"
+    redirect_to tasks_url
+  end
   
   def create
     task = Task.new(task_params)

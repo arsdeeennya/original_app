@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
   belongs_to :user
+  default_scope -> { order(created_at: :desc) }
   before_validation :set_nameless_name
   validates :name, presence:true, length:{ maximum:30 }
   validates :description, presence:true, length: { maximum:400 }

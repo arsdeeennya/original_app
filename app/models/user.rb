@@ -2,6 +2,7 @@
 
 class User < ApplicationRecord
   has_many :microposts, dependent: :destroy
+  has_many :tasks
   attr_accessor :remember_token
 
   before_validation :set_nameless_name

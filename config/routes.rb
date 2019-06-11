@@ -35,4 +35,9 @@ Rails.application.routes.draw do
     resources :microposts,only:[:create, :destroy]
   end
   
+  controller :tasks do
+    # root to: 'tasks#index'
+    resources :tasks
+  end
+  
 end

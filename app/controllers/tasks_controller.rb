@@ -33,12 +33,23 @@ class TasksController < ApplicationController
   
   def create
     @task = current_user.tasks.build(task_params)
+    
+    if params[:back].present?
+      render :new
+      return
+    end
+    
     if @task.save
       flash[:success] = "タスク「#{@task.name}」を登録しました"
       redirect_to tasks_url
     else
       render 'new'
     end
+  end
+  
+  def confirm_new
+    @task = current_user.tasks.new(task_params)
+    render :new unless @task.valid?
   end
   
   private

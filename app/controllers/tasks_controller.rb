@@ -2,7 +2,9 @@ class TasksController < ApplicationController
   before_action :logged_in_user
   
   def index
-    @tasks = current_user.tasks
+    # @tasks = current_user.tasks
+    @q = current_user.tasks.ransack(params[:q])
+    @tasks = @q.result(distinct: true)
   end
 
   def show

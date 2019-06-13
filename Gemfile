@@ -48,4 +48,9 @@ group :development do
   gem 'web-console', '>= 3.3.0'
 end
 
+group :test do
+  gem 'guard',                    '2.13.0'
+  gem 'guard-minitest',           '2.4.4'
+end
+
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

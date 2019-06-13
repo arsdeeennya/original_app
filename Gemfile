@@ -24,12 +24,13 @@ gem 'rails-i18n'
 gem 'ransack'
 gem 'sass-rails', '~> 5.0'
 gem 'slim-rails'
-gem 'sqlite3'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 gem 'will_paginate', '3.1.6'
 
+
 group :development, :test do
+  gem 'sqlite3','1.3.13'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'capybara', '~> 2.13'
   gem 'factory_bot_rails', '~> 4.10.0'

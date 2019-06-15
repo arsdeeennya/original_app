@@ -17,7 +17,6 @@ ja:
        description: 詳しい説明
        created_at: 登録日時
        updated_at: 更新日時
-        
     errors:
       messages:
         not_saved:
@@ -225,7 +224,3 @@ ja:
       long: "%Y/%m/%d %H:%M"
       short: "%m/%d %H:%M"
     pm: 午後
-  
-  
-  
-    

@@ -15,17 +15,41 @@
 <% else %>
   <div class="center jumbotron">
     
+    
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-
-    <div id="app"></div>
+    
+    <div id="app">
+      <p>
+        {{ a[1].name + "<= Vueの練習コード" }}
+      </p>  
+    </div>
     
     <script>
-    new Vue({
-	    template: '<p>{{msg}}</p>',
-      data:{ msg: 'hello,world!'}
-    }).$mount('#app')
-    </script>
+    // console.assert(typeof Vue !== 'undefined');
+    var items = [{name: '鉛筆', price: 300, quanity: 0},{name: 'ノート', price: 400, quanity: 0}]
     
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        a: items
+      }
+    });
+    
+    // vm.$watch(function(){
+    //   return this.items[0].quantity
+    // }, function (quanity){
+    //   console.log(quanity)
+    // })
+    
+    
+    // new Vue({
+	   // template: '<p>{{msg}}</p>',
+    //   data:{ msg: 'hello,world!'}
+    // }).$mount('#app')
+    </script>
+  
+  
+  
     <h1>TwiTask</h1>
 
     <h2>

@@ -1,16 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get 'tasks/index'
 
-  get 'tasks/show'
-
-  get 'tasks/new'
-
-  get 'tasks/edit'
-
-  # get 'sessions/new', to: 'sessions#new'
-  
   root 'static_pages#home'
   
   controller :static_pages do
@@ -36,7 +27,6 @@ Rails.application.routes.draw do
   end
   
   controller :tasks do
-    # root to: 'tasks#index'
     resources :tasks do
       post :confirm, action: :confirm_new, on: :new
     end

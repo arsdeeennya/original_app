@@ -19,42 +19,41 @@
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     
     <div id="app">
-      <p> 「Vueの練習コード」 </p>
-      <p> {{ a[1].name }} </p>
-      <p> {{ items[0].name }}: {{ items[0].price }} x {{ items[0].quantity }} </p>
-      <p>フィルター処理例 {{1000 | numberWithDelimiter}}</p>
+       <p>{{ items[0].name }}: {{ items[0].price }} x {{ items[0].quantity }}</p>
+       <p>小計: {{ totalPrice | numberWithDelimiter }}円</p>
+       <p>合計(税込): {{ totalPriceWithTax | numberWithDelimiter }}円</p>
     </div>
     
     <script>
-    // console.assert(typeof Vue !== 'undefined');
     var items = [{name: '鉛筆', price: 300, quantity: 0},{name: 'ノート', price: 400, quantity: 0}]
     
     var vm = new Vue({
       el: '#app',
       data: {
-        a: items
+        items: items
       },
       filters: {
-        numberWithDelimiter: function(value){
-          if(!value){
+        numberWithDelimiter: function (value) {
+          if (!value) {
             return '0'
           }
           return value.toString().replace(/(\d)(?=(\d{3})+$)/g, '$1,')
         }
+      },
+      computed: { // 算出プロパティ
+        totalPrice: function () {
+          return this.items.reduce(function (sum, item) {
+            return sum + (item.price * item.quantity)
+          }, 0)
+        },
+        totalPriceWithTax: function () {
+          // 算出プロパティに依存した算出プロパティも定義できる
+          return Math.floor(this.totalPrice * 1.08)
+        }
       }
-    });
+    })
+    window.vm = vm
     
-    // vm.$watch(function(){
-    //   return this.items[0].quantity
-    // }, function (quanity){
-    //   console.log(quanity)
-    // })
-    
-    
-    // new Vue({
-	   // template: '<p>{{msg}}</p>',
-    //   data:{ msg: 'hello,world!'}
-    // }).$mount('#app')
     </script>
   
   

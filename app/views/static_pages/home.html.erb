@@ -19,19 +19,28 @@
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     
     <div id="app">
-      <p>
-        {{ a[1].name + "<= Vueの練習コード" }}
-      </p>  
+      <p> 「Vueの練習コード」 </p>
+      <p> {{ a[1].name }} </p>
+      <p> {{ items[0].name }}: {{ items[0].price }} x {{ items[0].quantity }} </p>
+      <p>フィルター処理例 {{1000 | numberWithDelimiter}}</p>
     </div>
     
     <script>
     // console.assert(typeof Vue !== 'undefined');
-    var items = [{name: '鉛筆', price: 300, quanity: 0},{name: 'ノート', price: 400, quanity: 0}]
+    var items = [{name: '鉛筆', price: 300, quantity: 0},{name: 'ノート', price: 400, quantity: 0}]
     
     var vm = new Vue({
       el: '#app',
       data: {
         a: items
+      },
+      filters: {
+        numberWithDelimiter: function(value){
+          if(!value){
+            return '0'
+          }
+          return value.toString().replace(/(\d)(?=(\d{3})+$)/g, '$1,')
+        }
       }
     });
     

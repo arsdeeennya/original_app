@@ -14,19 +14,59 @@
   </div>
 <% else %>
   <div class="center jumbotron">
-    
-    
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    
+
+  
+    <h1>TwiTask</h1>
+
+    <h2>
+      タスクを管理し、友達と情報を共有しよう
+    </h2>
+
+    <%= link_to "アカウントを作成", new_user_path, class: "btn btn-lg btn-primary" %>
+  </div>
+  
+  <script src="https://unpkg.com/vue@2.5.17"></script>
     <div id="app">
-       <p>{{ items[0].name }}: {{ items[0].price }} x {{ items[0].quantity }}</p>
-       <p>小計: {{ totalPrice | numberWithDelimiter }}円</p>
-       <p>合計(税込): {{ totalPriceWithTax | numberWithDelimiter }}円</p>
+      <ul>
+        <li v-for="item in items" v-bind:key="item.name">
+          <!-- v-onでイベントが発生した時に属性値で指定した式を評価する -->
+          {{ item.name }}の個数: <input type="number" v-on:input="item.quantity = $event.target.value" v-bind:value="item.quantity" min="0">
+        </li>
+      </ul>
+      <hr>
+      <div v-bind:style="errorMessageStyle">
+        <ul>
+          <li v-for="item in items" v-bind:key="item.name">
+            {{ item.name }}: {{ item.price }} x {{ item.quantity }} = {{ item.price * item.quantity | numberWithDelimiter }}円
+          </li>
+        </ul>
+        <p>{{ items[0].name }}: {{ items[0].price }} x {{ items[0].quantity }}</p>
+        <p>小計: {{ totalPrice | numberWithDelimiter }}円</p>
+        <p>合計(税込): {{ totalPriceWithTax | numberWithDelimiter }}円</p>
+        <p v-show="!canBuy">
+          {{ 1000 | numberWithDelimiter }}円以上からご購入いただけます
+        </p>
+      </div>
     </div>
     
     <script>
-    var items = [{name: '鉛筆', price: 300, quantity: 0},{name: 'ノート', price: 400, quantity: 0}]
-    
+    var items = [
+      {
+        name: '鉛筆',
+        price: 300,
+        quantity: null
+      },
+      {
+        name: 'ノート',
+        price: 400,
+        quantity: null
+      },
+      {
+        name: '消しゴム',
+        price: 500,
+        quantity: null
+      }
+    ]
     var vm = new Vue({
       el: '#app',
       data: {
@@ -40,32 +80,30 @@
           return value.toString().replace(/(\d)(?=(\d{3})+$)/g, '$1,')
         }
       },
-      computed: { // 算出プロパティ
+      computed: {
         totalPrice: function () {
           return this.items.reduce(function (sum, item) {
             return sum + (item.price * item.quantity)
           }, 0)
         },
         totalPriceWithTax: function () {
-          // 算出プロパティに依存した算出プロパティも定義できる
           return Math.floor(this.totalPrice * 1.08)
+        },
+        canBuy: function () {
+          return this.totalPrice >= 1000
+        },
+        errorMessageStyle: function () {
+          // canBuyが偽の時に赤く表示する
+          return {
+            border: this.canBuy ? '' : '1px solid red',
+            color: this.canBuy ? '' : 'red'
+          }
         }
       }
     })
     window.vm = vm
-    
     </script>
   
-  
-  
-    <h1>TwiTask</h1>
-
-    <h2>
-      タスクを管理し、友達と情報を共有しよう
-    </h2>
-
-    <%= link_to "アカウントを作成", new_user_path, class: "btn btn-lg btn-primary" %>
-  </div>
 
   <%= link_to image_tag("rails.png", alt: "Rails logo"),
               'http://rubyonrails.org/' %>

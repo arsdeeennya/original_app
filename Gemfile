@@ -7,6 +7,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+    ruby '2.5.3'
+
 gem 'bcrypt'
 gem 'bootstrap-sass', '3.3.7'
 gem 'bootstrap-will_paginate', '1.0.0'
@@ -32,7 +34,6 @@ gem 'will_paginate', '3.1.6'
 group :development, :test do
   gem 'sqlite3','1.3.13'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'capybara', '~> 2.13'
   gem 'factory_bot_rails', '~> 4.10.0'
   gem 'minitest-reporters',       '1.1.14'
   gem 'pry-rails'
@@ -51,6 +52,7 @@ group :development do
 end
 
 group :test do
+  gem 'capybara', '~> 2.15.2'
   gem 'guard',                    '2.13.0'
   gem 'guard-minitest',           '2.4.4'
 end

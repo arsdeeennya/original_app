@@ -37,7 +37,7 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 4.10.0'
   gem 'minitest-reporters',       '1.1.14'
   gem 'pry-rails'
-  gem 'rspec-rails', '~> 3.6.0'
+  gem 'rspec-rails', '~> 3.8.0'
   gem 'selenium-webdriver'
 end
 

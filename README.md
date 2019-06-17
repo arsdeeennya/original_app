@@ -10,7 +10,7 @@ https://twitask.herokuapp.com/
 ## 機能と使用技術
 
 - インフラ(Heroku)
-- 単体・統合テスト(RSpec, factory_bot, minitest)
+- 単体・統合テスト(RSpec, factory_bot, capybara, minitest)
 - データベース(SQLite3,PostgreSQ)
 - ページネーション(kaminari, will_paginate)
 - 検索(ransack)

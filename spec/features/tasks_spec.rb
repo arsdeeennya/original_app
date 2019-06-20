@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'タスク管理機能', type: :system do
-  describe '一覧表示機能' do
+RSpec.feature "Tasks", type: :feature do
+  feature '一覧表示機能' do
     
     before do
       user_a = FactoryBot.create(:user, name: 'ユーザーA', email: 'a@example.com')
@@ -17,7 +17,7 @@ describe 'タスク管理機能', type: :system do
         click_button 'ログイン'
       end
       
-      # it 'ユーザーAが作成したタスクが表示される' do 
+      # scenario 'ユーザーAが作成したタスクが表示される' do 
       #   expect(page).to have_content 'あなたの投稿'
       # end
       

@@ -16,9 +16,9 @@ RSpec.feature "Users", type: :feature do
       click_button 'ログイン'
       end
       
-      it 'test' do
-        expect(page).to have_content 'ログイン'
-      end
+      # it 'test' do
+      #   expect(page).to have_content 'ログイン'
+      # end
     end
   end
 end
